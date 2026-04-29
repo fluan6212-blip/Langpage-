@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoic Warrior - Sua Jornada de Disciplina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* TEMA CLARO (Champagne) */
+            --bg-main: #F5EBDD;
+            --bg-white: #FFFFFF;
+            --bg-alt: #EFE3D3;
+            --primary: #6B4F3A;
+            --secondary: #5E8C61;
+            --soft-blue: #E3F2FD;
+            --text-dark: #2C2C2C;
+            --text-muted: #555555;
+            --accent-red: #D9534F;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --header-bg: rgba(227, 242, 253, 0.9);
+        }
+
+        /* TEMA ESCURO (Dark Mode) */
+        [data-theme="dark"] {
+            --bg-main: #0A0A0A;
+            --bg-white: #1A1A1A;
+            --bg-alt: #141414;
+            --primary: #D4AF37; /* Dourado no modo escuro */
+            --secondary: #81C784;
+            --soft-blue: #1E2A38; /* Azul escuro para o cabeçalho */
+            --text-dark: #F0F0F0;
+            --text-muted: #B0B0B0;
+            --accent-red: #FF5252;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --header-bg: rgba(30, 42, 56, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--header-bg);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(107, 79, 58, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* BOTÃO DARK MODE */
+        #theme-toggle {
+            position: absolute;
+            right: 0;
+            background: var(--bg-alt);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 50px 0 70px;
+            text-align: center;
+            background-color: var(--bg-main);
+        }
+
+        .hero h1 {
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .highlight-tag {
+            background: var(--bg-alt);
+            color: var(--primary);
+            padding: 6px 14px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 15px;
+            border-radius: 50px;
+            border: 1px solid rgba(107, 79, 58, 0.1);
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* BUTTONS */
+        .cta-button {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--bg-main); /* Inverte a cor no modo escuro */
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 8px 25px rgba(107, 79, 58, 0.2);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .cta-button {
+            color: #000;
+        }
+
+        .cta-button:active {
+            transform: scale(0.98);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 50px 0;
+        }
+
+        .section-alt {
+            background-color: var(--bg-alt);
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card p {
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        /* FEATURE CARDS */
+        .feature-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card img {
+            width: 100%;
+            display: block;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            background: #F0F0F0;
+        }
+        
+        [data-theme="dark"] .feature-card img {
+            background: #000;
+        }
+
+        .feature-content {
+            padding: 25px;
+        }
+
+        .feature-content h3 {
+            color: var(--primary);
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        /* EBOOK GRID */
+        .ebook-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .ebook-card {
+            background: var(--bg-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .ebook-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .ebook-card span {
+            display: block;
+            padding: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* SHOCK BLOCK */
+        .shock-block {
+            background: var(--bg-white);
+            border: 2px solid var(--accent-red);
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        [data-theme="dark"] .shock-block {
+            background: #2A0000;
+        }
+
+        .shock-block h2 {
+            color: var(--accent-red);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        /* OFFER BOX */
+        .offer-box {
+            background: var(--bg-white);
+            border: 2px solid var(--primary);
+            border-radius: 24px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(107, 79, 58, 0.1);
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .new-price {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 5px 0;
+        }
+
+        .urgency-badge {
+            background: var(--accent-red);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 11px;
+            margin-bottom: 25px;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        /* VIDEOS */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(107, 79, 58, 0.1);
+            margin: 15px 0 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* WHATSAPP */
+        .wa-btn {
+            background-color: var(--secondary);
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(94, 140, 97, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        ul { list-style: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">STOIC WARRIOR</div>
+                <button id="theme-toggle">🌙 NOITE</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="highlight-tag">Um Novo Estilo de Vida</div>
+            <h1>Você não precisa de motivação. Você precisa de um sistema que te FORCE a vencer.</h1>
+            <p>A motivação falha. A disciplina estoica, não. Transforme sua rotina com o sistema que une foco e resultado de forma minimalista.</p>
+            <a href="#oferta" class="cta-button">Começar Minha Jornada</a>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">A Verdade Que Você Está Ignorando</h2>
+        <div class="card">
+            <p>Sua vida está escapando por entre os dedos. Horas perdidas em telas. Compromissos importantes deixados para depois. Você se sente estagnado, sem o controle das suas próprias decisões.</p>
+            <p><strong>O problema não é você.</strong> O sistema atual foi desenhado para te manter distraído. Redes sociais e dopamina rápida são armadilhas constantes.</p>
+            <p>Você sabe que tem um potencial inexplorado, e essa sensação de não estar vivendo quem você deveria ser é o que realmente te cansa.</p>
+        </div>
+    </section>
+
+    <section class="container section-alt">
+        <div class="container">
+            <h2 class="section-title">Eles Mentiram Pra Você</h2>
+            <div class="card">
+                <p>Disseram que bastava "força de vontade". Que um vídeo de 5 minutos mudaria sua vida. Pura ilusão.</p>
+                <p>Motivação é passageira. Ela te abandona quando o cansaço chega. O que você precisa é de um <strong>sistema inabalável</strong>. Um ambiente que guie suas ações e elimine a inércia. É hora de agir como um guerreiro.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">O Seu Novo Campo de Treino</h2>
+        <div class="card">
+            <p>Conheça o <strong>Stoic Warrior</strong>. Muito além de um simples aplicativo, ele é sua ferramenta definitiva de disciplina, baseada nos princípios milenares do estoicismo.</p>
+            <p>Desenhado para organizar sua rotina, combater distrações e te devolver o comando da sua própria vida. Menos ruído, mais foco.</p>
+        </div>
+    </section>
+
+    <section class="container section-alt">
+        <h2 class="section-title">Ferramentas de Evolução</h2>
+        
+        <div class="feature-card">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503585223/ynUBdQIgEtEyQNNK.png" alt="Tarefas">
+            <div class="feature-content">
+                <h3>Suas Missões Diárias</h3>
+                <p>Clareza sobre o que deve ser feito. Progresso que você pode ver e sentir a cada dia cumprido.</p>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503585223/RskjvDFOxSLVEZAo.png" alt="Hábitos">
+            <div class="feature-content">
+                <h3>Consistência Inabalável</h3>
+                <p>Construa rotinas sólidas. A verdadeira mudança não acontece da noite para o dia, mas na repetição consciente.</p>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503585223/nxlPfYMRtWYhixiD.png" alt="Finanças">
+            <div class="feature-content">
+                <h3>Domínio Financeiro</h3>
+                <p>Assuma as rédeas da sua economia. Um homem livre é dono do seu tempo e do seu dinheiro.</p>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503585223/FOMspJIsggQtELWP.png" alt="Treino">
+            <div class="feature-content">
+                <h3>Corpo de Guerreiro</h3>
+                <p>Sua mente precisa de um templo forte. Acompanhe sua evolução física como parte essencial do seu desenvolvimento.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">A Jornada da Conquista</h2>
+        <div class="card">
+            <p>No Stoic Warrior, cada ação se torna uma conquista. Transformamos o peso da obrigação na satisfação da vitória.</p>
+            <p>Ganhe <strong>XP</strong>, suba de <strong>Nível</strong> e conquiste <strong>Moedas</strong>. Sinta a evolução real em cada etapa. Transforme a disciplina no seu hábito mais prazeroso.</p>
+        </div>
+    </section>
+
+    <section class="container section-alt">
+        <h2 class="section-title">Desafie Seus Limites</h2>
+        <div class="card">
+            <p>Enfrente desafios progressivos de <strong>7, 20, 40, 60 e 90 dias</strong>. Cada marco superado é uma prova da sua resiliência e maturidade. Você está pronto para se testar?</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Recupere Sua Mente</h2>
+        <div class="card">
+            <p>Sua atenção é seu bem mais precioso. Nosso sistema oferece ferramentas para identificar e eliminar vícios que drenam sua energia. Troque prazeres momentâneos pela satisfação duradoura do dever cumprido.</p>
+        </div>
+    </section>
+
+    <section class="container section-alt">
+        <h2 class="section-title">Arsenal de Conhecimento</h2>
+        <p class="text-center" style="font-size: 14px; margin-bottom: 10px; color: var(--text-muted);">Desbloqueie conteúdos exclusivos com suas moedas de conquista.</p>
+        <p class="text-center" style="font-size: 15px; margin-bottom: 25px; color: var(--primary); font-weight: 700;">🎧 TODOS DISPONÍVEIS EM AUDIOBOOK (+20 HORAS DE CONHECIMENTO)</p>
+        <div class="ebook-grid">
+            <div class="ebook-card">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503585223/MtfbNfcSISIXEBpo.png" alt="Mentalidade">
+                <span>Mentalidade</span>
+            </div>
+            <div class="ebook-card">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503585223/MczfTPdNqveYWCyO.png" alt="Oratória">
+                <span>Oratória</span>
+            </div>
+            <div class="ebook-card">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503585223/cZtFuKvWBGokGmpC.png" alt="Comunicação">
+                <span>Comunicação</span>
+            </div>
+            <div class="ebook-card">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663503585223/dPrGIdPRiwkosPtS.png" alt="Calistenia">
+                <span>Calistenia</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Quem Você Escolhe Ser?</h2>
+        <div class="card" style="border-left: 4px solid var(--accent-red);">
+            <h3 style="color: var(--accent-red); margin-bottom: 12px; font-size: 16px;">❌ Antes do Stoic Warrior</h3>
+            <ul style="font-size: 14px; color: var(--text-muted);">
+                <li>• Cansaço constante e falta de rumo.</li>
+                <li>• Dependência de distrações digitais.</li>
+                <li>• Planos que nunca saem do papel.</li>
+                <li>• Desorganização financeira e física.</li>
+            </ul>
+        </div>
+        <div class="card" style="border-left: 4px solid var(--secondary);">
+            <h3 style="color: var(--secondary); margin-bottom: 12px; font-size: 16px;">✅ Depois do Stoic Warrior</h3>
+            <ul style="font-size: 14px;">
+                <li>• Propósito claro e foco inabalável.</li>
+                <li>• Domínio sobre seus impulsos e tempo.</li>
+                <li>• Consistência que gera resultados reais.</li>
+                <li>• Evolução constante em todos os pilares.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="shock-block">
+            <h2>A Decisão é Sua</h2>
+            <p>Imagine-se daqui a 6 meses. Se nada mudar hoje, você estará exatamente onde está agora. Com as mesmas frustrações e o mesmo sentimento de "e se?".</p>
+            <p class="mt-20" style="font-weight: 700; color: var(--text-dark);">Você vai aceitar a mediocridade ou vai lutar pela vida que merece?</p>
+        </div>
+    </section>
+
+    <section id="oferta" class="container section-alt">
+        <div class="offer-box">
+            <div class="urgency-badge">Últimas 15 Vagas Promocionais</div>
+            <p class="old-price">De: R$ 57,90</p>
+            <p class="new-price">R$ 37,90</p>
+            <p style="font-size: 14px; margin-bottom: 25px; color: var(--text-muted);">Acesso Vitalício ao Modo PRO. Sem mensalidades.</p>
+            <a href="https://fluan6212-blip.github.io/Guerreiro-est-ico-/" class="cta-button">Assumir o Controle Agora</a>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Sua Segurança em Primeiro Lugar</h2>
+        <div class="card text-center">
+            <p>Experimente o Stoic Warrior por <strong>20 dias totalmente grátis</strong>.</p>
+            <p>• Sem cartão. Sem burocracia.<br>• Sem compromisso algum.</p>
+            <p style="color: var(--primary); font-weight: 800; margin-top: 10px;">Teste primeiro. Decida depois.</p>
+        </div>
+    </section>
+
+    <section class="container section-alt">
+        <h2 class="section-title">Passo a Passo Rápido</h2>
+        <p class="text-center" style="font-size: 14px; margin-bottom: 10px;">Como instalar em menos de 2 minutos:</p>
+        <div class="video-container">
+            <iframe src="https://drive.google.com/file/d/13Or4cI2-6PKIna6Uzk2mQ51DlpB-q_ZO/preview"></iframe>
+        </div>
+
+        <p class="text-center" style="font-size: 14px; margin-bottom: 10px; margin-top: 30px;">Como ativar seu modo PRO:</p>
+        <div class="video-container">
+            <iframe src="https://drive.google.com/file/d/1V0MZd5G9U28-2-uZPJFdHTsP5LqgKEdV/preview"></iframe>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Dúvidas? Fale Conosco</h2>
+        <a href="https://wa.me/554298508930?text=Quero%20saber%20mais%20sobre%20o%20Stoic%20Warrior" class="wa-btn" target="_blank">
+            FALAR COM UM GUERREIRO
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 STOIC WARRIOR. DESENVOLVIDO COM FOCO E DISCIPLINA.</p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+                themeToggle.innerHTML = '🌙 NOITE';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '☀️ DIA';
+            }
+        });
+    </script>
+
+</body>
+</html>
