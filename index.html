@@ -7,28 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* TEMA CLARO (Champagne) */
-            --bg-main: #F5EBDD;
-            --bg-white: #FFFFFF;
-            --bg-alt: #EFE3D3;
-            --primary: #6B4F3A;
-            --secondary: #5E8C61;
-            --soft-blue: #E3F2FD;
-            --text-dark: #2C2C2C;
-            --text-muted: #555555;
-            --accent-red: #D9534F;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --header-bg: rgba(227, 242, 253, 0.9);
-        }
-
-        /* TEMA ESCURO (Dark Mode) */
-        [data-theme="dark"] {
+            /* TEMA ESCURO FIXO (Dark Mode) */
             --bg-main: #0A0A0A;
             --bg-white: #1A1A1A;
             --bg-alt: #141414;
             --primary: #D4AF37; /* Dourado no modo escuro */
             --secondary: #81C784;
-            --soft-blue: #1E2A38; /* Azul escuro para o cabeçalho */
+            --soft-blue: #1E2A38;
             --text-dark: #F0F0F0;
             --text-muted: #B0B0B0;
             --accent-red: #FF5252;
@@ -69,7 +54,7 @@
         header {
             background-color: var(--header-bg);
             padding: 15px 0;
-            border-bottom: 1px solid rgba(107, 79, 58, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -84,27 +69,24 @@
             position: relative;
         }
 
-        .logo {
-            font-size: 16px;
+        /* CONTADOR NO LUGAR DO LOGO */
+        .vagas-counter {
+            font-size: 14px;
             font-weight: 800;
-            color: var(--primary);
+            color: #FFFFFF;
+            background-color: #FF0000; /* Cor vermelha solicitada */
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            animation: pulse 2s infinite;
         }
 
-        /* BOTÃO DARK MODE */
-        #theme-toggle {
-            position: absolute;
-            right: 0;
-            background: var(--bg-alt);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 5px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         /* HERO */
@@ -130,7 +112,7 @@
             font-size: 11px;
             margin-bottom: 15px;
             border-radius: 50px;
-            border: 1px solid rgba(107, 79, 58, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
         }
 
         .hero p {
@@ -144,7 +126,7 @@
             display: block;
             width: 100%;
             background-color: var(--primary);
-            color: var(--bg-main); /* Inverte a cor no modo escuro */
+            color: #000;
             text-align: center;
             padding: 20px;
             border-radius: 12px;
@@ -152,13 +134,9 @@
             font-size: 16px;
             text-decoration: none;
             text-transform: uppercase;
-            box-shadow: 0 8px 25px rgba(107, 79, 58, 0.2);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
             margin-bottom: 15px;
             transition: all 0.3s ease;
-        }
-        
-        [data-theme="dark"] .cta-button {
-            color: #000;
         }
 
         .cta-button:active {
@@ -212,10 +190,6 @@
             height: auto;
             max-height: 400px;
             object-fit: contain;
-            background: #F0F0F0;
-        }
-        
-        [data-theme="dark"] .feature-card img {
             background: #000;
         }
 
@@ -260,15 +234,11 @@
 
         /* SHOCK BLOCK */
         .shock-block {
-            background: var(--bg-white);
+            background: #2A0000;
             border: 2px solid var(--accent-red);
             padding: 30px 20px;
             border-radius: 20px;
             text-align: center;
-        }
-        
-        [data-theme="dark"] .shock-block {
-            background: #2A0000;
         }
 
         .shock-block h2 {
@@ -284,7 +254,7 @@
             border-radius: 24px;
             padding: 40px 20px;
             text-align: center;
-            box-shadow: 0 15px 40px rgba(107, 79, 58, 0.1);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.1);
         }
 
         .old-price {
@@ -319,7 +289,7 @@
             height: 0;
             border-radius: 15px;
             overflow: hidden;
-            border: 1px solid rgba(107, 79, 58, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
             margin: 15px 0 30px;
             box-shadow: var(--shadow);
         }
@@ -361,8 +331,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">STOIC WARRIOR</div>
-                <button id="theme-toggle">🌙 NOITE</button>
+                <div id="vagas-display" class="vagas-counter">CARREGANDO VAGAS...</div>
             </div>
         </div>
     </header>
@@ -517,7 +486,7 @@
 
     <section id="oferta" class="container section-alt">
         <div class="offer-box">
-            <div class="urgency-badge">Últimas 15 Vagas Promocionais</div>
+            <div id="urgency-badge" class="urgency-badge">Últimas 15 Vagas Promocionais</div>
             <p class="old-price">De: R$ 57,90</p>
             <p class="new-price">R$ 37,90</p>
             <p style="font-size: 14px; margin-bottom: 25px; color: var(--text-muted);">Acesso Vitalício ao Modo PRO. Sem mensalidades.</p>
@@ -559,18 +528,67 @@
     </footer>
 
     <script>
-        const themeToggle = document.getElementById('theme-toggle');
-        const body = document.body;
+        // Lógica do Contador de Vagas
+        const totalVagasIniciais = 15;
+        const tempoMinutos = 3;
+        const storageKey = 'vagas_restantes_stoic';
+        const storageTimeKey = 'ultimo_decremento_stoic';
 
-        themeToggle.addEventListener('click', () => {
-            if (body.hasAttribute('data-theme')) {
-                body.removeAttribute('data-theme');
-                themeToggle.innerHTML = '🌙 NOITE';
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                themeToggle.innerHTML = '☀️ DIA';
+        function atualizarDisplay(vagas) {
+            const display = document.getElementById('vagas-display');
+            const badge = document.getElementById('urgency-badge');
+            
+            let texto = `ÚLTIMAS ${vagas} VAGAS`;
+            if (vagas === 1) {
+                texto = "ÚLTIMA VAGA! APROVEITE ENQUANTO DÁ TEMPO";
             }
-        });
+            
+            display.innerText = texto;
+            if (badge) badge.innerText = texto;
+        }
+
+        function iniciarContador() {
+            let vagas = localStorage.getItem(storageKey);
+            let ultimaVez = localStorage.getItem(storageTimeKey);
+            const agora = Date.now();
+
+            if (vagas === null) {
+                vagas = totalVagasIniciais;
+                localStorage.setItem(storageKey, vagas);
+                localStorage.setItem(storageTimeKey, agora);
+            } else {
+                vagas = parseInt(vagas);
+                ultimaVez = parseInt(ultimaVez);
+                
+                // Calcula quantos intervalos de 3 minutos se passaram desde a última visita
+                const diff = agora - ultimaVez;
+                const intervalosPassados = Math.floor(diff / (tempoMinutos * 60 * 1000));
+                
+                if (intervalosPassados > 0 && vagas > 1) {
+                    vagas = Math.max(1, vagas - intervalosPassados);
+                    localStorage.setItem(storageKey, vagas);
+                    localStorage.setItem(storageTimeKey, agora);
+                }
+            }
+
+            atualizarDisplay(vagas);
+
+            // Intervalo para checar a cada minuto se deve decrementar
+            setInterval(() => {
+                const tempoAtual = Date.now();
+                const ultima = parseInt(localStorage.getItem(storageTimeKey));
+                let atualVagas = parseInt(localStorage.getItem(storageKey));
+
+                if (tempoAtual - ultima >= (tempoMinutos * 60 * 1000) && atualVagas > 1) {
+                    atualVagas--;
+                    localStorage.setItem(storageKey, atualVagas);
+                    localStorage.setItem(storageTimeKey, tempoAtual);
+                    atualizarDisplay(atualVagas);
+                }
+            }, 60000); // Checa a cada 1 minuto
+        }
+
+        window.onload = iniciarContador;
     </script>
 
 </body>
